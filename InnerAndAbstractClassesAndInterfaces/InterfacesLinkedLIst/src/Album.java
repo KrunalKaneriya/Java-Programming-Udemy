@@ -1,72 +1,89 @@
-
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
-/**
- * Created by dev on 18/09/15.
- */
+
 public class Album {
-    private String name;
-    private String artist;
-    private ArrayList<Song> songs;
+    private String albumName;
+    private songlist songs;
+    // ArrayList<Song>songs;
 
-    public Album(String name, String artist) {
-        this.name = name;
-        this.artist = artist;
-        this.songs = new ArrayList<Song>();
+
+    public Album(String albumName) {
+        this.albumName = albumName;
+        this.songs = new songlist();
     }
 
-    public boolean addSong(String title, double duration) {
-        if(findSong(title) == null) {
-            this.songs.add(new Song(title, duration));
+    public boolean addSong(String title,double duration) {
+
+        return this.songs.add(new Song (title,duration));
+        // if(findSong(title) == null) {
+        //     this.songs.add(new Song (title,duration));
+        //     return true;
+        // } 
+        // return false;
+    }
+
+    public boolean addToPlaylist(String title,LinkedList<Song>playlist) {
+        Song checkedSong = this.songs.findsong(title);
+        if(checkedSong!=null) {
+            playlist.add(checkedSong);
             return true;
         }
+        System.out.println("The Song is not Found in the ALbums..\nCannot Add Song to the playlist..");
         return false;
+    } 
+
+
+
+
+    // private Song findSong(String title) {
+    //     for(Song checkedSong:songlist) {
+    //         if(checkedSong.getSongtitle().equals(title))
+    //         return checkedSong;
+    //     }
+    //     return null;
+    // }
+
+    
+
+
+    /**
+     * @return String return the albumName
+     */
+    public String getAlbumName() {
+        return albumName;
     }
 
-    private Song findSong(String title) {
-        for(Song checkedSong: this.songs) {
-            if(checkedSong.getTitle().equals(title)) {
-                return checkedSong;
+    /**
+     * @param albumName the albumName to set
+     */
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
+    }
+
+    private class songlist {
+        private ArrayList<Song>songlist = new ArrayList<Song>();
+
+        
+        public boolean add(Song song) {
+            if(songlist.contains(song)) {
+                System.out.println("Song Already Added..");
+                return false;
             }
-        }
-        return null;
-    }
 
-    public boolean addToPlayList(int trackNumber, List<Song> playList) {
-        int index = trackNumber -1;
-        if((index >0) && (index <= this.songs.size())) {
-            playList.add(this.songs.get(index));
+            this.songlist.add(song);
+            System.out.println("Song "+ song.getSongtitle() + " Added..");
             return true;
         }
-        System.out.println("This album does not have a track " + trackNumber);
-        return false;
-    }
 
-    public boolean addToPlayList(String title, List<Song> playList) {
-        Song checkedSong = findSong(title);
-        if(checkedSong != null) {
-            playList.add(checkedSong);
-            return true;
+        public Song findsong(String title) {
+            for(Song checkedsong : songlist) {
+                if(checkedsong.getSongtitle().equals(title))
+                    return checkedsong;
+            }
+            return null;
         }
-        System.out.println("The song " + title + " is not in this album");
-        return false;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

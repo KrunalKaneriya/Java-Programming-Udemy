@@ -1,22 +1,36 @@
-
-/**
- * Created by dev on 18/09/15.
- */
 public class Song {
     private String title;
     private double duration;
 
-    public Song(String title, double duration) {
+    public Song(String title,double duration) {
         this.title = title;
         this.duration = duration;
     }
 
-    public String getTitle() {
-        return title;
+    public void setSongtitle(String title) {
+        this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return this.title + ": " + this.duration;
+    public void setSongduration(double duration) {
+        this.duration = duration;
     }
+
+    public String getSongtitle() {
+        return this.title;
+    }
+
+    public double getSongduration() {
+        return this.duration;
+    }
+
+    public String toString() {
+        return  this.title + " : "+ this.duration;
+
+    }
+
+
+    
+
+   
+
 }
